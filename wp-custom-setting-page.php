@@ -68,6 +68,7 @@ function wp_custom_plugin_settings_init()
     register_setting('wp_custom_plugin_settings_group', 'wp_custom_plugin_text_setting');
     register_setting('wp_custom_plugin_settings_group', 'wp_custom_plugin_checkbox_setting');
     register_setting('wp_custom_plugin_settings_group', 'wp_custom_plugin_radio_setting');
+    register_setting('wp_custom_plugin_settings_group', 'wp_custom_plugin_select_setting');
 
     add_settings_section(
         'wp_custom_plugin_settings_section',
@@ -96,6 +97,14 @@ function wp_custom_plugin_settings_init()
         'wp_custom_plugin_radio_setting',
         'Radio Buttons',
         'wp_custom_plugin_radio_setting_render',
+        'wp-custom-plugin',
+        'wp_custom_plugin_settings_section'
+    );
+
+    add_settings_field(
+        'wp_custom_plugin_select_setting',
+        'Dropdown',
+        'wp_custom_plugin_select_setting_render',
         'wp-custom-plugin',
         'wp_custom_plugin_settings_section'
     );
@@ -128,5 +137,18 @@ function wp_custom_plugin_radio_setting_render()
 ?>
     <input type="radio" name="wp_custom_plugin_radio_setting" value="option1" <?php checked('option1', $value); ?> /> Option 1
     <input type="radio" name="wp_custom_plugin_radio_setting" value="option2" <?php checked('option2', $value); ?> /> Option 2
+<?php
+}
+
+
+function wp_custom_plugin_select_setting_render()
+{
+    $value = get_option('wp_custom_plugin_select_setting', 'option1');
+?>
+    <select name="wp_custom_plugin_select_setting">
+        <option value="option1" <?php selected('option1', $value); ?>>Option 1</option>
+        <option value="option2" <?php selected('option2', $value); ?>>Option 2</option>
+    </select>
+    <label for="wp_custom_plugin_select_setting">Choose an option</label>
 <?php
 }
