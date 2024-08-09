@@ -69,6 +69,7 @@ function wp_custom_plugin_settings_init()
     register_setting('wp_custom_plugin_settings_group', 'wp_custom_plugin_checkbox_setting');
     register_setting('wp_custom_plugin_settings_group', 'wp_custom_plugin_radio_setting');
     register_setting('wp_custom_plugin_settings_group', 'wp_custom_plugin_select_setting');
+    register_setting('wp_custom_plugin_settings_group', 'wp_custom_plugin_textarea_setting');
 
     add_settings_section(
         'wp_custom_plugin_settings_section',
@@ -105,6 +106,14 @@ function wp_custom_plugin_settings_init()
         'wp_custom_plugin_select_setting',
         'Dropdown',
         'wp_custom_plugin_select_setting_render',
+        'wp-custom-plugin',
+        'wp_custom_plugin_settings_section'
+    );
+
+    add_settings_field(
+        'wp_custom_plugin_textarea_setting',
+        'Textarea',
+        'wp_custom_plugin_textarea_setting_render',
         'wp-custom-plugin',
         'wp_custom_plugin_settings_section'
     );
@@ -150,5 +159,14 @@ function wp_custom_plugin_select_setting_render()
         <option value="option2" <?php selected('option2', $value); ?>>Option 2</option>
     </select>
     <label for="wp_custom_plugin_select_setting">Choose an option</label>
+<?php
+}
+
+function wp_custom_plugin_textarea_setting_render()
+{
+    $value = get_option('wp_custom_plugin_textarea_setting', '');
+?>
+    <textarea name="wp_custom_plugin_textarea_setting"><?php echo esc_textarea($value); ?></textarea>
+    <label for="wp_custom_plugin_textarea_setting">Enter some text</label>
 <?php
 }
